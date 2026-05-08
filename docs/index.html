@@ -458,7 +458,8 @@
   var drops=[], speeds=[];
   function resize(){
     c.width=hero.offsetWidth;
-    c.height=hero.offsetHeight;
+    c.height=Math.max(hero.offsetHeight, window.innerHeight);
+    hero.style.minHeight=c.height+'px';
     initDrops();
   }
   function initDrops(){
@@ -467,6 +468,7 @@
     for(var i=0;i<cols;i++){drops[i]=Math.random()*-(c.height/13);speeds[i]=0.3+Math.random()*0.5;}
   }
   resize();
+  window.addEventListener('load', resize);
   window.addEventListener('resize', resize);
   var symbols=['0','1','IAP','WBS','EAP','kN','n\u00b2','f(x)','{','}','()','SQL','%.2f','def','()=>','//','import','class','SELECT','git','npm','</>','[ ]','{ }','curl','\u2211','\u222b','\u03c0','\u0394','\u03c3','\u221a','log(n)','\u2200x','\u2208','\u2229','\u2261','\u00ac','\u2295','\u2264','\u2265','\u00b1'];
   var fs=13;
