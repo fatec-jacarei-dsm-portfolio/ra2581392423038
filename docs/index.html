@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Monteiro Correia — RA2581392423038 | Engenheiro Civil, Analista de Dados & Desenvolvedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0d0f; --bg2: #111418; --bg3: #181d22;
+    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.12);
+    --text: #e8eaed; --muted: #7a8490; --muted2: #4a5260;
+    --green: #4ade80; --green2: #22c55e;
+    --green-dim: rgba(74,222,128,0.08); --green-dim2: rgba(74,222,128,0.15);
+    --accent: #86efac;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(10,13,15,0.85); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-mono); font-size: 0.85rem; color: var(--green); letter-spacing: 0.05em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--green); }
+
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 5rem; position: relative; overflow: hidden; }
+  #matrix-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .hero-inner { max-width: 900px; position: relative; z-index: 1; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  .hero-name { font-family: var(--font-head); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.02em; color: #fff; margin-bottom: 0.5rem; }
+  .hero-name span { color: var(--green); }
+  .hero-role { font-family: var(--font-head); font-size: clamp(0.85rem, 2vw, 1.1rem); font-weight: 400; color: var(--muted); margin-bottom: 2rem; letter-spacing: 0.01em; }
+  .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 580px; line-height: 1.8; margin-bottom: 3rem; }
+  .hero-desc strong { color: var(--accent); font-weight: 500; }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; background: var(--green); color: #0a0d0f; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; text-decoration: none; border-radius: 4px; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; background: transparent; color: var(--text); font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.05em; text-decoration: none; border: 1px solid var(--border2); border-radius: 4px; transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  section { padding: 6rem 3rem; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .section-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--green); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .section-title { font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 3rem; }
+  .section-divider { width: 100%; height: 1px; background: var(--border); }
+
+  .sobre-grid { display: grid; grid-template-columns: 240px 1fr; gap: 4rem; align-items: start; }
+  .avatar-frame { width: 240px; aspect-ratio: 3/4; border-radius: 8px; border: 1px solid var(--border2); overflow: hidden; background: var(--bg3); display: flex; align-items: center; justify-content: center; position: relative; }
+  .avatar-frame::after { content: ''; position: absolute; inset: 0; border-radius: 8px; border: 1px solid var(--green-dim2); pointer-events: none; }
+  .avatar-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+  .avatar-tag { margin-top: 1rem; display: inline-block; background: var(--bg2); border: 1px solid var(--border2); border-radius: 4px; padding: 0.5rem 0.75rem; font-family: var(--font-mono); font-size: 0.68rem; color: var(--green); line-height: 1.5; }
+  .sobre-text p { color: var(--muted); font-size: 1rem; line-height: 1.85; margin-bottom: 1.25rem; }
+  .sobre-text p strong { color: var(--text); font-weight: 500; }
+  .sobre-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-top: 2rem; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .stat-num { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.68rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.02em; line-height: 1.4; }
+
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .skill-group { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s; }
+  .skill-group:hover { border-color: var(--border2); }
+  .skill-group-icon { width: 36px; height: 36px; border-radius: 6px; background: var(--green-dim); border: 1px solid rgba(74,222,128,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .skill-group-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.5; }
+  .skill-group-title { font-family: var(--font-head); font-size: 0.95rem; font-weight: 600; color: #fff; margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.3rem 0.65rem; border-radius: 3px; letter-spacing: 0.02em; }
+  .skill-tag.primary { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+  .skill-tag.secondary { background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
+
+  .projects-stack { display: flex; flex-direction: column; gap: 2rem; }
+  .app-obras-card { background: linear-gradient(135deg, var(--bg2) 0%, rgba(74,222,128,0.04) 100%); border: 1px solid rgba(74,222,128,0.2); border-radius: 10px; padding: 2rem; position: relative; overflow: hidden; }
+  .app-obras-card::after { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(74,222,128,0.05) 0%, transparent 70%); pointer-events: none; }
+  .wip-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.68rem; color: #f59e0b; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); padding: 0.25rem 0.6rem; border-radius: 3px; margin-bottom: 0.75rem; }
+  .wip-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #f59e0b; animation: pulse 1.5s ease-in-out infinite; }
+  .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem; }
+  .feature-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+  .feature-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .screenshots { display: grid; gap: 0.75rem; margin-top: 1.5rem; }
+  .screenshots.two { grid-template-columns: 1fr 1fr; }
+  .screenshots.four { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  .screenshots img { width: 100%; border-radius: 6px; border: 1px solid var(--border2); display: block; transition: border-color 0.2s; }
+  .screenshots img:hover { border-color: rgba(74,222,128,0.3); }
+
+  .project-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; position: relative; overflow: hidden; transition: border-color 0.25s; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--green), transparent); opacity: 0; transition: opacity 0.3s; }
+  .project-card:hover { border-color: var(--border2); }
+  .project-card:hover::before { opacity: 1; }
+  .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+  .project-type { font-family: var(--font-mono); font-size: 0.68rem; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .project-name { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; color: #fff; line-height: 1.3; }
+  .project-link { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 4px; padding: 0.3rem 0.7rem; transition: color 0.2s, border-color 0.2s; flex-shrink: 0; }
+  .project-link:hover { color: var(--green); border-color: rgba(74,222,128,0.3); }
+  .project-link svg { width: 12px; height: 12px; }
+  .project-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .project-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.75; margin-bottom: 1.25rem; }
+  .project-techs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .tech-badge { font-family: var(--font-mono); font-size: 0.68rem; padding: 0.2rem 0.55rem; background: var(--bg3); color: var(--muted); border: 1px solid var(--border); border-radius: 3px; }
+  .project-contrib { background: var(--bg3); border-radius: 6px; padding: 1.25rem; border: 1px solid var(--border); }
+  .project-contrib-title { font-family: var(--font-mono); font-size: 0.7rem; color: var(--green); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+  .project-contrib ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .project-contrib li { font-size: 0.85rem; color: var(--muted); padding-left: 1rem; position: relative; }
+  .project-contrib li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-family: var(--font-mono); }
+  .screenshots-side { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .screenshots-side img { width: 100%; border-radius: 6px; border: 1px solid var(--border2); display: block; transition: border-color 0.2s; }
+  .screenshots-side img:hover { border-color: rgba(74,222,128,0.3); }
+  .placeholder-screen { display: flex; align-items: center; justify-content: center; background: var(--bg3); border-radius: 6px; border: 1px solid var(--border); min-height: 140px; }
+
+  #contato { padding-bottom: 8rem; }
+  .contact-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; text-align: center; position: relative; overflow: hidden; }
+  .contact-box::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 200px; background: radial-gradient(ellipse, rgba(74,222,128,0.06) 0%, transparent 70%); pointer-events: none; }
+  .contact-box h3 { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 0.75rem; }
+  .contact-box p { color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; font-size: 0.95rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1.5rem; border: 1px solid var(--border2); border-radius: 6px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text); text-decoration: none; transition: border-color 0.2s, color 0.2s, background 0.2s; }
+  .contact-link:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+  .contact-link svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+  footer p { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted2); letter-spacing: 0.03em; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+  .fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .sobre-grid { grid-template-columns: 1fr; }
+    .sobre-stats { grid-template-columns: repeat(2, 1fr); }
+    .skills-layout { grid-template-columns: 1fr; }
+    .project-body { grid-template-columns: 1fr; }
+    .screenshots.four { grid-template-columns: 1fr 1fr; }
+    .screenshots-side { grid-template-columns: 1fr 1fr; }
+    .feature-list { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">lucas.mc_</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">sobre</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#projetos">projetos</a></li>
+    <li><a href="#contato">contato</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <canvas id="matrix-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-tag fade-up">disponível para oportunidades</div>
+    <h1 class="hero-name fade-up">Lucas<br><span>Monteiro</span></h1>
+    <p class="hero-role fade-up">Engenheiro Civil · Analista de Dados · Planejamento de Obras · Desenvolvimento de Software</p>
+    <p class="hero-desc fade-up">
+      Engenheiro civil que une <strong>gestão de obras</strong>, <strong>análise de dados</strong> e <strong>tecnologia</strong>.
+      Atuo em planejamento, controle e análise de projetos — e desenvolvo sistemas próprios para substituir planilhas por soluções digitais modernas.
+    </p>
+    <div class="hero-ctas fade-up">
+      <a href="#projetos" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        ver projetos
+      </a>
+      <a href="https://linkedin.com/in/lucasmonteirocorreia" target="_blank" rel="noopener" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="sobre">
+  <p class="section-label">// 01 — sobre mim</p>
+  <h2 class="section-title">Engenharia que<br>pensa em código</h2>
+  <div class="sobre-grid">
+    <div>
+      <div class="avatar-frame">
+        <img src="assets/foto.jpg" alt="Lucas Monteiro Correia">
+      </div>
+      <div class="avatar-tag">Eng. Civil · Analista de Dados · Dev</div>
+    </div>
+    <div class="sobre-text">
+      <p>Sou engenheiro civil com foco em <strong>planejamento e controle de obras</strong>, com experiência tanto no canteiro quanto na gestão estratégica de projetos. Trabalho diretamente com cronogramas, análise de avanço físico, curva S, IAP e controle de produtividade.</p>
+      <p>Ao longo da minha trajetória, identifiquei que as ferramentas disponíveis no mercado — principalmente planilhas Excel — não entregam a agilidade e inteligência que a gestão moderna de obras exige. Por isso, passei a <strong>desenvolver minhas próprias soluções</strong>: sistemas web, dashboards e automações voltados para a construção civil.</p>
+      <p>Hoje estudo desenvolvimento de software com foco em <strong>Python, JavaScript, SQL e aplicações web</strong>, buscando unir engenharia e tecnologia para criar ferramentas que transformam dados de execução em decisões estratégicas.</p>
+      <div class="sobre-stats">
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">anos em gestão de obras</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">anos em análise de dados</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">anos em dev. de sistemas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">DSM</div>
+          <div class="stat-label">Dev. Software Multiplataforma · FATEC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="skills">
+  <p class="section-label">// 02 — competências</p>
+  <h2 class="section-title">Onde engenharia<br>encontra tecnologia</h2>
+  <div class="skills-layout">
+    <div class="skill-group">
+      <div class="skill-group-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+      <div class="skill-group-title">Planejamento e Controle de Obras</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Cronograma Executivo</span>
+        <span class="skill-tag primary">Curva S</span>
+        <span class="skill-tag primary">IAP</span>
+        <span class="skill-tag primary">EAP / WBS</span>
+        <span class="skill-tag primary">Avanço Físico</span>
+        <span class="skill-tag secondary">Microsoft Project</span>
+        <span class="skill-tag secondary">Baseline</span>
+        <span class="skill-tag secondary">Caminho Crítico</span>
+        <span class="skill-tag secondary">Controle de Produtividade</span>
+        <span class="skill-tag secondary">Gestão de Custos</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <div class="skill-group-title">Desenvolvimento de Software</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Python</span>
+        <span class="skill-tag primary">JavaScript</span>
+        <span class="skill-tag primary">TypeScript</span>
+        <span class="skill-tag primary">SQL</span>
+        <span class="skill-tag secondary">Flask</span>
+        <span class="skill-tag secondary">PostgreSQL</span>
+        <span class="skill-tag secondary">Bootstrap</span>
+        <span class="skill-tag secondary">HTML / CSS</span>
+        <span class="skill-tag secondary">Git / GitHub</span>
+        <span class="skill-tag secondary">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="skill-group-title">Análise de Dados e BI</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Excel Avançado</span>
+        <span class="skill-tag primary">Dashboards</span>
+        <span class="skill-tag primary">KPIs</span>
+        <span class="skill-tag primary">Análise de Desempenho</span>
+        <span class="skill-tag secondary">Chart.js</span>
+        <span class="skill-tag secondary">Relatórios Gerenciais</span>
+        <span class="skill-tag secondary">Automação de Planilhas</span>
+        <span class="skill-tag secondary">Modelagem de Dados</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+      <div class="skill-group-title">Interesses e Fronteiras</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">IA Aplicada à Engenharia</span>
+        <span class="skill-tag primary">Automação Inteligente</span>
+        <span class="skill-tag secondary">Segurança de Dados</span>
+        <span class="skill-tag secondary">Business Intelligence</span>
+        <span class="skill-tag secondary">Sistemas para Construção Civil</span>
+        <span class="skill-tag secondary">Desenvolvimento Web</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="projetos">
+  <p class="section-label">// 03 — projetos</p>
+  <h2 class="section-title">Do canteiro<br>ao código</h2>
+
+  <div class="projects-stack">
+
+    <!-- app-obras -->
+    <div class="app-obras-card">
+      <span class="wip-badge">em desenvolvimento</span>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:260px;">
+          <p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;">Projeto Pessoal · Full Stack</p>
+          <h3 style="font-family:var(--font-head);font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:.75rem;">app-obras</h3>
+          <p style="color:var(--muted);font-size:.92rem;line-height:1.75;max-width:540px;">Sistema web completo para controle de obras, desenvolvido do zero para substituir fluxos baseados em Excel. Combina interface administrativa robusta com visão do cliente em tempo real.</p>
+          <div class="feature-list">
+            <div class="feature-item">EAP / WBS hierárquico</div>
+            <div class="feature-item">Curva S dinâmica</div>
+            <div class="feature-item">Lançamentos semanais</div>
+            <div class="feature-item">Dashboard com Chart.js</div>
+            <div class="feature-item">IAP automatizado</div>
+            <div class="feature-item">View pública do cliente</div>
+            <div class="feature-item">Import / Export Excel</div>
+            <div class="feature-item">KPIs gerenciais</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;">
+          <span class="tech-badge">Python</span>
+          <span class="tech-badge">Flask</span>
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">Bootstrap 5</span>
+          <span class="tech-badge">Chart.js</span>
+          <span class="tech-badge">JavaScript</span>
+        </div>
+      </div>
+      <div class="screenshots two">
+        <img src="assets/app-obras-1.png" alt="app-obras — tela de lançamentos semanais">
+        <img src="assets/app-obras-2.png" alt="app-obras — painel minhas obras">
+      </div>
+    </div>
+
+    <!-- HallwayEducation -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <p class="project-type">ABP Acadêmico · 1º Semestre — 2024/2 · FATEC Jacareí</p>
+          <h3 class="project-name">HallwayEducation</h3>
+        </div>
+        <a href="https://github.com/hallwaytechgrupo/ABP-2024-2" target="_blank" rel="noopener" class="project-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="project-body">
+        <div>
+          <p class="project-desc">Plataforma de ensino sobre metodologia ágil Scrum, desenvolvida como projeto integrador do 1º semestre. O sistema oferece módulos de aprendizado interativo, quizzes de avaliação por módulo e emissão de certificado digital ao concluir o curso.</p>
+          <div class="project-techs">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">HTML / CSS</span>
+            <span class="tech-badge">Git / GitHub</span>
+            <span class="tech-badge">Scrum</span>
+          </div>
+          <div class="project-contrib">
+            <p class="project-contrib-title">// minha contribuição</p>
+            <ul>
+              <li>Desenvolvimento de interfaces e componentes front-end</li>
+              <li>Estruturação da lógica de módulos e navegação</li>
+              <li>Implementação do sistema de quizzes</li>
+              <li>Documentação técnica do projeto</li>
+            </ul>
+          </div>
+        </div>
+        <div class="screenshots-side">
+          <img src="assets/hallway-6.png" alt="HallwayEducation — home">
+          <img src="assets/hallway-2.png" alt="HallwayEducation — módulo Sprint">
+          <img src="assets/hallway-3.png" alt="HallwayEducation — ferramentas Scrum">
+          <img src="assets/hallway-4.png" alt="HallwayEducation — certificado">
+        </div>
+      </div>
+    </div>
+
+    <!-- Autoatendimento Acadêmico -->
+    <div class="project-card">
+      <div class="project-header">
+        <div>
+          <p class="project-type">ABP Acadêmico · 2º Semestre — 2026/1 · FATEC Jacareí</p>
+          <h3 class="project-name">Autoatendimento Acadêmico</h3>
+        </div>
+        <a href="https://github.com/404NotFound-ABP/Autoatendimento_Academico" target="_blank" rel="noopener" class="project-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
+      <div class="project-body">
+        <div>
+          <p class="project-desc">Sistema de autoatendimento acadêmico desenvolvido como projeto integrador do 2º semestre. Plataforma que automatiza processos de atendimento institucional, reduzindo carga administrativa e melhorando a experiência do aluno.</p>
+          <div class="project-techs">
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">HTML / CSS</span>
+            <span class="tech-badge">Git / GitHub</span>
+          </div>
+          <div class="project-contrib">
+            <p class="project-contrib-title">// minha contribuição</p>
+            <ul>
+              <li>Desenvolvimento de interfaces de usuário</li>
+              <li>Modelagem de fluxos de atendimento</li>
+              <li>Testes e validação de funcionalidades</li>
+              <li>Colaboração em revisões de código</li>
+            </ul>
+          </div>
+        </div>
+        <div class="placeholder-screen">
+          <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--muted2);text-align:center;padding:1.5rem;">screenshots em breve</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section id="contato">
+  <p class="section-label">// 04 — contato</p>
+  <div class="contact-box">
+    <h3>Vamos conversar?</h3>
+    <p>Aberto a oportunidades em engenharia, análise de dados, desenvolvimento de software ou na interseção entre os três. Pode me chamar por qualquer canal abaixo.</p>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/lucasmonteirocorreia" target="_blank" rel="noopener" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/lucasmonteiro14" target="_blank" rel="noopener" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:lucas.monteiro222@outlook.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        lucas.monteiro222@outlook.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Lucas Monteiro Correia</p>
+  <p>Desenvolvido com HTML puro · GitHub Pages</p>
+</footer>
+
+<script>
+(function(){
+  var c=document.getElementById('matrix-canvas');
+  var ctx=c.getContext('2d');
+  var hero=document.getElementById('hero');
+  function resize(){c.width=hero.offsetWidth;c.height=hero.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  var symbols=['0','1','IAP','WBS','EAP','kN','n\u00b2','f(x)','{','}','()','SQL','%.2f','def','()=>','//','import','class','SELECT','git','npm','</>','[ ]','{ }','curl','\u2211','\u222b','\u03c0','\u0394','\u03c3','\u221a','log(n)','\u2200x','\u2208','\u2229','\u2261','\u00ac','\u2295','\u2264','\u2265','\u00b1'];
+  var fs=13;
+  var drops=[];
+  var speeds=[];
+  function initDrops(){
+    var cols=Math.floor(c.width/fs);
+    drops=[];speeds=[];
+    for(var i=0;i<cols;i++){drops[i]=Math.random()*-(c.height/fs);speeds[i]=0.3+Math.random()*0.5;}
+  }
+  initDrops();
+  window.addEventListener('resize',initDrops);
+  function draw(){
+    ctx.fillStyle='rgba(10,13,15,0.18)';
+    ctx.fillRect(0,0,c.width,c.height);
+    var cols=Math.floor(c.width/fs);
+    for(var i=0;i<cols;i++){
+      var sym=symbols[Math.floor(Math.random()*symbols.length)];
+      var y=drops[i]*fs;
+      var progress=y/c.height;
+      if(progress<0.3)ctx.fillStyle='rgba(74,222,128,0.9)';
+      else if(progress<0.6)ctx.fillStyle='rgba(74,222,128,0.5)';
+      else ctx.fillStyle='rgba(74,222,128,0.2)';
+      ctx.font=fs+'px DM Mono,monospace';
+      ctx.fillText(sym,i*fs,y);
+      drops[i]+=speeds[i];
+      if(drops[i]*fs>c.height&&Math.random()>0.97)drops[i]=0;
+    }
+  }
+  setInterval(draw,60);
+})();
+</script>
+</body>
+</html>
