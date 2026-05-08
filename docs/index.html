@@ -41,7 +41,7 @@
   .nav-links a:hover { color: var(--green); }
 
   #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 5rem; position: relative; overflow: hidden; }
-  #matrix-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  #matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; display: block; }
   .hero-inner { max-width: 900px; position: relative; z-index: 1; }
   .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
   .hero-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
@@ -176,7 +176,7 @@
   <canvas id="matrix-canvas"></canvas>
   <div class="hero-inner">
     <div class="hero-tag fade-up">disponível para oportunidades</div>
-    <h1 class="hero-name fade-up">Lucas<br><span>Monteiro</span></h1>
+    <h1 class="hero-name fade-up">Lucas Monteiro<br><span>Correia</span></h1>
     <p class="hero-role fade-up">Engenheiro Civil · Analista de Dados · Planejamento de Obras · Desenvolvimento de Software</p>
     <p class="hero-desc fade-up">
       Engenheiro civil que une <strong>gestão de obras</strong>, <strong>análise de dados</strong> e <strong>tecnologia</strong>.
@@ -455,20 +455,21 @@
   var c=document.getElementById('matrix-canvas');
   var ctx=c.getContext('2d');
   var hero=document.getElementById('hero');
-  function resize(){c.width=hero.offsetWidth;c.height=hero.offsetHeight;}
+  var drops=[], speeds=[];
+  function resize(){
+    c.width=hero.offsetWidth;
+    c.height=hero.offsetHeight;
+    initDrops();
+  }
+  function initDrops(){
+    var cols=Math.floor(c.width/13);
+    drops=[];speeds=[];
+    for(var i=0;i<cols;i++){drops[i]=Math.random()*-(c.height/13);speeds[i]=0.3+Math.random()*0.5;}
+  }
   resize();
-  window.addEventListener('resize',resize);
+  window.addEventListener('resize', resize);
   var symbols=['0','1','IAP','WBS','EAP','kN','n\u00b2','f(x)','{','}','()','SQL','%.2f','def','()=>','//','import','class','SELECT','git','npm','</>','[ ]','{ }','curl','\u2211','\u222b','\u03c0','\u0394','\u03c3','\u221a','log(n)','\u2200x','\u2208','\u2229','\u2261','\u00ac','\u2295','\u2264','\u2265','\u00b1'];
   var fs=13;
-  var drops=[];
-  var speeds=[];
-  function initDrops(){
-    var cols=Math.floor(c.width/fs);
-    drops=[];speeds=[];
-    for(var i=0;i<cols;i++){drops[i]=Math.random()*-(c.height/fs);speeds[i]=0.3+Math.random()*0.5;}
-  }
-  initDrops();
-  window.addEventListener('resize',initDrops);
   function draw(){
     ctx.fillStyle='rgba(10,13,15,0.18)';
     ctx.fillRect(0,0,c.width,c.height);
