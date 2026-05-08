@@ -16,7 +16,7 @@
 
 ## 🎬 Vídeo de Apresentação
 
-🎥 Link do vídeo: *(em breve)*
+🎥 Link do vídeo: https://youtu.be/77bZ0yP1ENo
 
 ---
 
