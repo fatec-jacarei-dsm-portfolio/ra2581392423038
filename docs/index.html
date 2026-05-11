@@ -41,7 +41,7 @@
   .nav-links a:hover { color: var(--green); }
 
   #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 5rem; position: relative; overflow: hidden; }
-  #matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; display: block; }
+  #matrix-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; display: block; }
   .hero-inner { max-width: 900px; position: relative; z-index: 1; }
   .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
   .hero-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
@@ -457,9 +457,8 @@
   var hero=document.getElementById('hero');
   var drops=[], speeds=[];
   function resize(){
-    c.width=hero.offsetWidth;
-    c.height=Math.max(hero.offsetHeight, window.innerHeight);
-    hero.style.minHeight=c.height+'px';
+    c.width=window.innerWidth;
+    c.height=window.innerHeight;
     initDrops();
   }
   function initDrops(){
