@@ -10,7 +10,7 @@
 
 ## 🌐 Portfólio Online
 
-🔗 [Acesse o Portfólio](https://lucasmonteiro14.github.io/portfolio-RA2581392423038/)
+🔗 [Acesse o Portfólio](https://fatec-jacarei-dsm-portfolio.github.io/ra2581392423038/)
 
 ---
 
